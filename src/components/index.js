@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: ----描述----
+ * @version: 1.0
+ * @Author: 张鹏
+ * @Date: 2022-04-18 11:17:20
+ * @LastEditors: 张鹏
+ * @LastEditTime: 2022-04-18 17:43:28
+ */
 // chart
 import Bar from '@/components/Charts/Bar'
 import ChartCard from '@/components/Charts/ChartCard'
@@ -18,6 +26,7 @@ import FooterToolbar from '@/components/FooterToolbar'
 import NumberInfo from '@/components/NumberInfo'
 import Tree from '@/components/Tree/Tree'
 import Trend from '@/components/Trend'
+import Divider from '@/components/Divider/Divider'
 import STable from '@/components/Table'
 import MultiTab from '@/components/MultiTab'
 import IconSelector from '@/components/IconSelector'
@@ -28,6 +37,7 @@ import ArticleListContent from '@/components/ArticleListContent'
 import Dialog from '@/components/Dialog'
 
 export {
+  Divider,
   AvatarList,
   Bar,
   ChartCard,
@@ -51,6 +61,5 @@ export {
   TagSelect,
   StandardFormRow,
   ArticleListContent,
-
   Dialog
 }

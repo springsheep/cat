@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: ----描述----
+ * @version: 1.0
+ * @Author: 张鹏
+ * @Date: 2022-04-18 11:17:20
+ * @LastEditors: 张鹏
+ * @LastEditTime: 2022-04-19 09:58:52
+ */
 /**
  * 项目默认配置项
  * primaryColor - 默认主题色, 如果修改颜色不生效，请清理 localStorage
@@ -13,17 +21,17 @@
  */
 
 export default {
-  navTheme: 'dark', // theme for nav menu
+  navTheme: 'light', // theme for nav menu
   primaryColor: '#1890ff', // '#F5222D', // primary color of ant design
-  layout: 'sidemenu', // nav menu position: `sidemenu` or `topmenu`
+  layout: 'topmenu', // nav menu position: `sidemenu` or `topmenu`
   contentWidth: 'Fluid', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
-  fixedHeader: false, // sticky header
-  fixSiderbar: false, // sticky siderbar
+  fixedHeader: true, // sticky header
+  fixSiderbar: true, // sticky siderbar
   colorWeak: false,
   menu: {
     locale: true
   },
-  title: 'Ant Design Pro',
+  title: '组织调整与干部任免',
   pwa: false,
   iconfontUrl: '',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'

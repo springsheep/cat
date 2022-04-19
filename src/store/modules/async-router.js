@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: ----描述----
+ * @version: 1.0
+ * @Author: 张鹏
+ * @Date: 2022-04-18 11:17:20
+ * @LastEditors: 张鹏
+ * @LastEditTime: 2022-04-18 14:12:46
+ */
 /**
  * 向后端请求用户的菜单，动态生成路由
  */
@@ -16,7 +24,7 @@ const permission = {
     }
   },
   actions: {
-    GenerateRoutes ({ commit }, data) {
+    GenerateRoutes({ commit }, data) {
       return new Promise(resolve => {
         const { token } = data
         generatorDynamicRouter(token).then(routers => {
