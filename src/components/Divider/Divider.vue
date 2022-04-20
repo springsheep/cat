@@ -4,16 +4,35 @@
  * @Author: 张鹏
  * @Date: 2022-04-18 17:40:15
  * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-18 17:57:10
+ * @LastEditTime: 2022-04-19 15:22:42
 -->
 <template>
-  <h1 class="divder-left" :style="{ 'margin-bottom': bottom + 'px', 'margin-top': top + 'px' }">{{ title }}</h1>
+  <div>
+    <h1 v-if="type === '1'" class="divder-left" :style="{ 'margin-bottom': bottom + 'px', 'margin-top': top + 'px' }">
+      {{ title }}
+    </h1>
+    <h1 v-else class="divder-left-v2" :style="{ 'margin-bottom': bottom + 'px', 'margin-top': top + 'px' }">
+      <slot name="left" class="left">
+        <a-icon type="plus-square" />
+      </slot>
+      <div class="middle">
+        {{ title }}
+      </div>
+      <div class="right">
+        <slot name="right"></slot>
+      </div>
+    </h1>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Divider',
   props: {
+    type: {
+      default: '1',
+      type: String,
+    },
     title: {
       default: '标题',
       type: String,
@@ -40,5 +59,34 @@ export default {
   padding-left: 20px;
   line-height: 36px;
   font-size: 18px;
+}
+.divder-left-v2 {
+  .right {
+    max-width: 300px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .anticon {
+    margin-right: 14px;
+    color: @primary-color;
+    width: 28px;
+    font-size: 28px;
+  }
+  .middle {
+    flex: 1;
+    line-height: 58px;
+    height: 58px;
+  }
+  height: 58px;
+  background: @primary-1;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  line-height: 58px;
+  font-size: 22px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
 }
 </style>

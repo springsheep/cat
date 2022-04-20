@@ -492,8 +492,7 @@ const userNav = options => {
       meta: {
         title: '流程管理'
       },
-      redirect: '/dashboard/analysis',
-      component: 'RouteView'
+      path: '/processManagement/processManagement',
     },
     {
       name: 'postManagement',
@@ -502,8 +501,6 @@ const userNav = options => {
       meta: {
         title: '发文管理'
       },
-      redirect: '/dashboard/analysis',
-      component: 'RouteView'
     }, {
       name: 'reportQuery',
       parentId: 0,

@@ -45,7 +45,10 @@ import {
   Descriptions,
   Space,
   message,
-  notification
+  notification,
+  Anchor,
+  FormModel,
+  Cascader
 } from 'ant-design-vue'
 import Viser from 'viser-vue'
 
@@ -56,7 +59,9 @@ import MultiTab from '@/components/MultiTab'
 import PageLoading from '@/components/PageLoading'
 import PermissionHelper from '@/core/permission/permission'
 import './directives/action'
-
+Vue.use(Anchor)
+Vue.use(Cascader)
+Vue.use(FormModel)
 Vue.use(ConfigProvider)
 Vue.use(Layout)
 Vue.use(Input)

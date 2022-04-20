@@ -4,7 +4,7 @@
  * @Author: 张鹏
  * @Date: 2022-04-19 09:21:11
  * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-19 09:54:12
+ * @LastEditTime: 2022-04-20 10:34:47
  */
 let demoMenu = [
   {
@@ -135,6 +135,16 @@ let demoMenu = [
       show: true
     },
     component: 'StandardList'
+  },
+  {
+    name: 'demo-list',
+    parentId: 10010,
+    id: 10012,
+    meta: {
+      title: '组件列表',
+      show: true
+    },
+    component: 'DemoList'
   },
   {
     name: 'card',

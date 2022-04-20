@@ -15,6 +15,8 @@ const constantRouterComponents = {
   '500': () => import(/* webpackChunkName: "error" */ '@/views/exception/500'),
 
   // 你需要动态引入的页面组件
+  postManagement: () => import('@/views/postManagement/postManagement'),
+  processManagement: () => import('@/views/processManagement/processManagement'),
   homePage: () => import('@/views/homePage/homePage'),
   Workplace: () => import('@/views/dashboard/Workplace'),
   Analysis: () => import('@/views/dashboard/Analysis'),
@@ -27,6 +29,7 @@ const constantRouterComponents = {
   // list
   TableList: () => import('@/views/list/TableList'),
   StandardList: () => import('@/views/list/BasicList'),
+  DemoList: () => import('@/views/list/DemoList'),
   CardList: () => import('@/views/list/CardList'),
   SearchLayout: () => import('@/views/list/search/SearchLayout'),
   SearchArticles: () => import('@/views/list/search/Article'),
