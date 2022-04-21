@@ -1,23 +1,25 @@
+@import '~ant-design-vue/es/style/themes/default.less';
 .h-table {
   background: #fff;
   .table-custom-dragstart:hover {
     background: transparent;
   }
-  // .ant-table-thead {
-  //   background: #fafafa;
-  //   > tr th {
-  //     border-right: 1px solid #e8e8e8;
-  //     .ant-table-header-column > div {
-  //       width: 100%;
-  //       overflow: hidden;
-  //       text-overflow: ellipsis;
-  //       white-space: nowrap;
-  //     }
-  //   }
-  // }
-  // .ant-table-scroll .ant-table-body {
-  //   overflow-x: auto !important;
-  // }
+  .ant-table-thead {
+    background: @primary-1;
+    > tr th {
+      background: transparent;
+      // border-right: 1px solid #e8e8e8;
+      // .ant-table-header-column > div {
+      //   width: 100%;
+      //   overflow: hidden;
+      //   text-overflow: ellipsis;
+      //   white-space: nowrap;
+      // }
+    }
+  }
+  .ant-table-scroll .ant-table-body {
+    overflow-x: auto !important;
+  }
   .ant-table-small {
     border-radius: 0;
     tr th:first-child,

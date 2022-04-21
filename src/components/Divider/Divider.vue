@@ -4,7 +4,7 @@
  * @Author: 张鹏
  * @Date: 2022-04-18 17:40:15
  * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-19 15:22:42
+ * @LastEditTime: 2022-04-20 17:14:58
 -->
 <template>
   <div>
@@ -52,13 +52,14 @@ export default {
 <style lang="less" scoped>
 @import '~ant-design-vue/es/style/themes/default.less';
 .divder-left {
-  height: 36px;
+  height: 32px;
   background: #fff;
   width: 100%;
   border-left: 5px solid @primary-color;
-  padding-left: 20px;
-  line-height: 36px;
+  padding-left: 10px;
+  line-height: 32px;
   font-size: 18px;
+  font-weight: 600;
 }
 .divder-left-v2 {
   .right {

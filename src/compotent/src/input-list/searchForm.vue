@@ -4,7 +4,7 @@
  * @Author: 张鹏
  * @Date: 2022-04-20 09:25:22
  * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-20 11:00:48
+ * @LastEditTime: 2022-04-21 13:47:11
 -->
 <template>
   <div class="search-form-box">
@@ -16,7 +16,7 @@
           :sm="12"
           :xs="24"
           v-for="(item, index) in formOptions"
-          :key="newKeys[index]"
+          :key="index"
           :style="{ display: index < count ? 'block' : 'none' }"
         >
           <a-form-model-item :prop="item.prop" :label="item.label ? item.label + '：' : ''" :rules="item.rules">
@@ -49,19 +49,24 @@
     </a-row>
     <a-row type="flex" justify="space-between" v-if="formOptions.length >= 4">
       <a-space>
-        <a-button v-if="btnItems.includes('export')" type="primary" class="btn-export" @click="onExport">导出</a-button>
+        <slot name="btnItems"></slot>
       </a-space>
       <a-space>
         <a-button v-if="btnItems.includes('search')" type="primary" class="btn-search" @click="onSearch">搜索</a-button>
         <a-button v-if="btnItems.includes('reset')" type="default" class="btn-reset" @click="onReset">重置</a-button>
-        <a :style="{ marginLeft: '8px', fontSize: '12px' }" @click="toggle" class="Collapse">
+        <a
+          :style="{ marginLeft: '8px', fontSize: '12px' }"
+          @click="toggle"
+          class="Collapse"
+          v-if="formOptions.length > 4"
+        >
           Collapse <a-icon :type="expand ? 'up' : 'down'" class="Collapse-icon" />
         </a>
       </a-space>
     </a-row>
     <a-row type="flex" justify="start" v-else>
       <div class="btn-box">
-        <a-button v-if="btnItems.includes('export')" type="primary" class="btn-export" @click="onExport">导出</a-button>
+        <slot name="btnItems"></slot>
       </div>
     </a-row>
   </div>
@@ -129,12 +134,12 @@ export default {
       labelCol: {
         xs: { span: 24 },
         sm: { span: 8 },
-        md: { span: 6 },
+        md: { span: 8 },
       },
       wrapperCol: {
         xs: { span: 24 },
         sm: { span: 16 },
-        md: { span: 18 },
+        md: { span: 16 },
       },
       formData: {},
     }

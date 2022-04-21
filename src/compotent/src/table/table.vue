@@ -16,8 +16,17 @@ let isDrop = false
 
 export default {
   name: 'h-table',
+  updated() {
+    // 表格斑马行显示
+    this.stripe && this.renderStripe()
+  },
   props: {
     ...Table.props,
+    // 设置斑马行
+    stripe: {
+      type: Boolean,
+      default: true,
+    },
     /**
      * 同 a-table 的 scroll，内置 x 的值
      */
@@ -253,6 +262,20 @@ export default {
     this.dragTable()
   },
   methods: {
+    // 表格斑马行显示
+    renderStripe() {
+      const table = document.getElementsByClassName('ant-table-row')
+      if (table.length > 0) {
+        const rowList = [...table]
+        rowList.map((row, index) => {
+          if (index % 2 !== 0) {
+            row.style.backgroundColor = '#f9f9f9'
+          } else {
+            row.style.backgroundColor = '#ffffff'
+          }
+        })
+      }
+    },
     /**
      * 表格重新加载方法
      * @param {Boolean} resetPage 如果参数为 true，则强制刷新到第一页

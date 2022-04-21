@@ -14,6 +14,7 @@ import themePluginConfig from '../config/themePluginConfig'
 // mock
 // WARNING: `mockjs` NOT SUPPORT `IE` PLEASE DO NOT USE IN `production` ENV.
 import './mock'
+import './codeData'
 import AKit from "./compotent";
 import bootstrap from './core/bootstrap'
 import './core/lazy_use' // use lazy load components
@@ -29,7 +30,24 @@ Vue.use(VueAxios)
 Vue.component('pro-layout', ProLayout)
 Vue.component('page-container', PageHeaderWrapper)
 Vue.component('page-header-wrapper', PageHeaderWrapper)
+// 默认的配置，用于表单布局
+Vue.prototype.$wrapperCol = {
+  xl: 6,
+  md: 8,
+  sm: 24
+}
+Vue.prototype.$getDic = (key) => {
+  const data = window.CodeDate;
+  return data[key] || [];
+};
 
+// 表单独占一半的配置，用于表单布局
+Vue.prototype.$wrapperHalfCol = {
+  xxl: 6,
+  xl: 12,
+  md: 16,
+  sm: 24
+}
 window.umi_plugin_ant_themeVar = themePluginConfig.theme
 
 new Vue({

@@ -4,7 +4,7 @@
  * @Author: 张鹏
  * @Date: 2022-04-18 11:17:20
  * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-19 12:43:55
+ * @LastEditTime: 2022-04-21 14:04:50
  */
 /**
  * 项目默认配置项
@@ -24,7 +24,7 @@ export default {
   navTheme: 'light', // theme for nav menu
   primaryColor: '#1890ff', // '#F5222D', // primary color of ant design
   layout: 'topmenu', // nav menu position: `sidemenu` or `topmenu`
-  contentWidth: 'Fixed', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
+  contentWidth: 'Fluid', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
   fixedHeader: true, // sticky header
   fixSiderbar: true, // sticky siderbar
   colorWeak: false,

@@ -492,7 +492,26 @@ const userNav = options => {
       meta: {
         title: '流程管理'
       },
-      path: '/processManagement/processManagement',
+      redirect: '/processManagement/extensionContainer',
+      component: 'RouteView'
+    },
+    {
+      name: 'extensionContainer',
+      parentId: 4,
+      id: 41,
+      meta: {
+        title: '在途流程'
+      },
+      component: 'extensionContainer'
+    },
+    {
+      name: 'processferc',
+      parentId: 4,
+      id: 42,
+      meta: {
+        title: '归档流程'
+      },
+      component: 'processferc'
     },
     {
       name: 'postManagement',
@@ -517,8 +536,7 @@ const userNav = options => {
       meta: {
         title: '规章制度'
       },
-      redirect: '/dashboard/analysis',
-      component: 'RouteView'
+      component: 'regulations'
     },
     // // account
     {
