@@ -4,7 +4,7 @@
  * @Author: 张鹏
  * @Date: 2022-04-20 09:06:16
  * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-21 13:47:44
+ * @LastEditTime: 2022-04-21 16:39:20
 -->
 <template>
   <page-header-wrapper>
@@ -28,7 +28,7 @@
           </template>
           <!-- 操作 -->
           <template #action>
-            <a @click="edit">编辑</a>
+            <a @click="seeDetail">查看详情</a>
           </template>
         </h-table>
       </div>
@@ -191,16 +191,11 @@ export default {
           scopedSlots: { customRender: 'action' },
         },
       ],
-      btns: [],
     }
   },
   methods: {
-    freash(e) {
-      this.current = {}
-    },
-    edit() {
-      //  this.current = Object.assign({}, data);
-      this.$refs.alert.show()
+    seeDetail() {
+      this.$router.push('/processManagement/processManagement')
     },
     queryTables,
     /**

@@ -4,173 +4,183 @@
  * @Author: 张鹏
  * @Date: 2022-04-19 11:48:57
  * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-20 09:10:04
--->
-<!--
- * @Descripttion: ----描述----
- * @version: 1.0
- * @Author: 张鹏
- * @Date: 2022-04-19 11:48:57
- * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-19 15:09:44
+ * @LastEditTime: 2022-04-21 16:58:39
 -->
 <template>
-  <div class="content">
-    <a-anchor affix wrapperClass="wrapperClass" v-if="!isMobile">
-      <a-anchor-link href="#bjsm" title="背景说明" />
-      <a-anchor-link href="#zzjgsz" title="组织结构设置" />
-      <a-anchor-link href="#glgj" title="岗类岗级报批信息" />
-      <a-anchor-link href="#gwczd" title="岗位常驻地报批信息" />
-      <a-anchor-link href="#npygb" title="拟聘用干部报批信息" />
-      <a-anchor-link href="#fwfj" title="发文附件" />
-      <!-- <a-anchor-link href="#API" title="API">
+  <page-header-wrapper>
+    <div class="content">
+      <!-- 锚点代码 -->
+      <a-anchor affix wrapperClass="wrapperClass" v-if="!isMobile">
+        <a-anchor-link href="#bjsm" title="背景说明" />
+        <a-anchor-link href="#zzjgsz" title="组织结构设置" />
+        <a-anchor-link href="#glgj" title="岗类岗级报批" />
+        <a-anchor-link href="#gwczd" title="岗位常驻地报批" />
+        <a-anchor-link href="#npygb" title="拟聘用干部报批" />
+        <a-anchor-link href="#fwfj" title="发文附件" />
+        <!-- <a-anchor-link href="#API" title="API">
         <a-anchor-link href="#Anchor-Props" title="Anchor Props" />
         <a-anchor-link href="#Link-Props" title="Link Props" />
       </a-anchor-link> -->
-      <a-anchor-link href="#shpj" title="审批记录" />
-    </a-anchor>
-    <header class="content-header">
-      <h1 class="content-header-title">组织调整与干部任免申请单（20220325001）</h1>
-      <div class="content-header-tag">
-        <a-tag color="#1A8AFA"> 一级部门：商业BG </a-tag>
-        <a-tag color="#FD6E21"> 终批角色：CEO </a-tag>
+        <a-anchor-link href="#shpj" title="审批记录" />
+      </a-anchor>
+      <!-- 头部信息 -->
+      <header class="content-header">
+        <h1 class="content-header-title">组织调整与干部任免申请单（20220325001）</h1>
+        <div class="content-header-tag">
+          <a-tag color="#1A8AFA"> 一级部门：商业BG </a-tag>
+          <a-tag color="#FD6E21"> 终批角色：CEO </a-tag>
+        </div>
+      </header>
+      <!-- 背景部分 -->
+      <Divider type="2" title="背景说明" :top="0" :bottom="0" id="bjsm"></Divider>
+      <div class="bg">
+        <a-textarea
+          class="bg-topInfo"
+          v-model="bgInfo"
+          placeholder="Controlled autosize"
+          :auto-size="{ minRows: 3, maxRows: 5 }"
+        />
+        <div class="bg-nums">
+          <div class="bg-nums-one" v-for="item in 5">
+            <a-statistic title="组织结构设置" :value="1128" style="margin-right: 50px">
+              <template #suffix>
+                <div>个</div>
+              </template>
+            </a-statistic>
+          </div>
+        </div>
       </div>
-    </header>
-    <Divider type="2" title="背景说明" :top="0" :bottom="0" id="bjsm"></Divider>
-    <div class="bg">
-      <a-textarea
-        class="bg-topInfo"
-        v-model="bgInfo"
-        placeholder="Controlled autosize"
-        :auto-size="{ minRows: 3, maxRows: 5 }"
-      />
-      <div class="bg-nums">
-        <div class="bg-nums-one" v-for="item in 5">
-          <a-statistic title="组织结构设置" :value="1128" style="margin-right: 50px">
-            <template #suffix>
-              <div>个</div>
-            </template>
-          </a-statistic>
+      <!-- 组织结构部分 -->
+      <Divider type="2" title="组织结构设置" :top="0" :bottom="0" id="zzjgsz">
+        <template v-slot:right>
+          <a-button
+            type="link"
+            class="a-button glgj-head-btn"
+            @click="$router.push('/processManagement/processOrgChange')"
+          >
+            查看及编辑详情
+          </a-button>
+        </template>
+      </Divider>
+      <div class="zzjg">
+        <a-textarea
+          class="zzjg-topInfo"
+          v-model="zzjgInfo"
+          placeholder="Controlled autosize"
+          :auto-size="{ minRows: 3, maxRows: 5 }"
+        />
+        <div class="zzjg-btn">
+          <a-radio-group default-value="a" button-style="solid">
+            <a-radio-button value="a"> 新版 </a-radio-button>
+            <a-radio-button value="d"> 原版 </a-radio-button>
+          </a-radio-group>
+        </div>
+        <RelationGraph />
+        <div>
+          <tableList></tableList>
+        </div>
+      </div>
+      <!-- 岗类岗级报批信息 -->
+      <Divider type="2" title="岗类岗级报批信息" :top="0" :bottom="0" id="glgj">
+        <template v-slot:right>
+          <a-button type="link" class="a-button"> 查看及编辑详情 </a-button>
+          <a-checkbox class="glgj-head-btn glgj-head-checkbox"> </a-checkbox>
+        </template>
+      </Divider>
+      <div class="glgj">
+        <a-textarea
+          class="glgj-topInfo"
+          v-model="glgjInfo"
+          placeholder="Controlled autosize"
+          :auto-size="{ minRows: 3, maxRows: 5 }"
+        />
+        <tableList></tableList>
+      </div>
+      <!-- 岗位常驻地报批信息 -->
+      <Divider type="2" title="岗位常驻地报批信息" :top="0" :bottom="0" id="gwczd">
+        <template v-slot:right>
+          <a-button type="link" class="a-button"> 查看及编辑详情 </a-button>
+          <a-checkbox class="glgj-head-btn glgj-head-checkbox"> </a-checkbox>
+        </template>
+      </Divider>
+      <div class="glgj">
+        <a-textarea
+          class="glgj-topInfo"
+          v-model="glgjInfo"
+          placeholder="Controlled autosize"
+          :auto-size="{ minRows: 3, maxRows: 5 }"
+        />
+        <tableList></tableList>
+      </div>
+      <!-- 拟聘用干部报批信息 -->
+      <Divider type="2" title="拟聘用干部报批信息" :top="0" :bottom="0" id="npygb">
+        <template v-slot:right>
+          <a-button type="link" class="a-button"> 查看及编辑详情 </a-button>
+          <a-checkbox class="glgj-head-btn glgj-head-checkbox"> </a-checkbox>
+        </template>
+      </Divider>
+      <div class="glgj">
+        <a-textarea
+          class="glgj-topInfo"
+          v-model="glgjInfo"
+          placeholder="Controlled autosize"
+          :auto-size="{ minRows: 3, maxRows: 5 }"
+        />
+        <tableListOne></tableListOne>
+      </div>
+      <!-- 发文附件 -->
+      <Divider type="2" title="发文附件" :top="0" :bottom="0" id="fwfj">
+        <template v-slot:right>
+          <a-button type="link" class="a-button"> 查看及编辑详情 </a-button>
+          <a-checkbox class="glgj-head-btn glgj-head-checkbox"> </a-checkbox>
+        </template>
+      </Divider>
+      <div class="glgj">
+        <a-textarea
+          class="glgj-topInfo"
+          v-model="glgjInfo"
+          placeholder="Controlled autosize"
+          :auto-size="{ minRows: 3, maxRows: 5 }"
+        />
+        <tableList></tableList>
+      </div>
+      <!-- 审批记录 -->
+      <Divider type="2" title="审批记录" :top="0" :bottom="0" id="shpj"> </Divider>
+      <div class="glgj">
+        <div class="glgj-steps">
+          <template>
+            <a-steps progress-dot :current="2" direction="vertical">
+              <a-step v-for="(item, index) in steps" :key="index">
+                <template v-slot:title>
+                  <img class="step-logo" :src="item.img || imgLogo" alt="" />
+                  <p>{{ item.name }}</p>
+                </template>
+                <template v-slot:subTitle>{{ item.time }} </template>
+                <template v-slot:description>{{ item.message }} </template>
+              </a-step>
+            </a-steps>
+          </template>
+        </div>
+      </div>
+      <div class="footer-info">
+        <div class="footer-info-content">
+          <a-textarea
+            class="footer-info-content-topInfo"
+            placeholder="请输入审批意见"
+            :auto-size="{ minRows: 3, maxRows: 5 }"
+          />
+          <div class="footer-info-content-btns">
+            <a-space>
+              <a-button type="dashed">保存草稿</a-button>
+              <a-button>转办</a-button>
+              <a-button>驳回</a-button>
+              <a-button type="primary">同意</a-button>
+            </a-space>
+          </div>
         </div>
       </div>
     </div>
-    <Divider type="2" title="组织结构设置" :top="0" :bottom="0" id="zzjgsz">
-      <template v-slot:right>
-        <a-button type="link" class="a-button glgj-head-btn"> 查看及编辑详情 </a-button>
-      </template>
-    </Divider>
-    <div class="zzjg">
-      <a-textarea
-        class="zzjg-topInfo"
-        v-model="zzjgInfo"
-        placeholder="Controlled autosize"
-        :auto-size="{ minRows: 3, maxRows: 5 }"
-      />
-      <div class="zzjg-btn">
-        <a-radio-group default-value="a" button-style="solid">
-          <a-radio-button value="a"> 新版 </a-radio-button>
-          <a-radio-button value="d"> 原版 </a-radio-button>
-        </a-radio-group>
-      </div>
-      <RelationGraph />
-      <div>
-        <tableList></tableList>
-      </div>
-    </div>
-    <!-- 岗类岗级报批信息 -->
-    <Divider type="2" title="岗类岗级报批信息" :top="0" :bottom="0" id="glgj">
-      <template v-slot:right>
-        <a-button type="link" class="a-button"> 查看及编辑详情 </a-button>
-        <a-checkbox class="glgj-head-btn glgj-head-checkbox"> </a-checkbox>
-      </template>
-    </Divider>
-    <div class="glgj">
-      <a-textarea
-        class="glgj-topInfo"
-        v-model="glgjInfo"
-        placeholder="Controlled autosize"
-        :auto-size="{ minRows: 3, maxRows: 5 }"
-      />
-      <tableList></tableList>
-    </div>
-    <!-- 岗位常驻地报批信息 -->
-    <Divider type="2" title="岗位常驻地报批信息" :top="0" :bottom="0" id="gwczd">
-      <template v-slot:right>
-        <a-button type="link" class="a-button"> 查看及编辑详情 </a-button>
-        <a-checkbox class="glgj-head-btn glgj-head-checkbox"> </a-checkbox>
-      </template>
-    </Divider>
-    <div class="glgj">
-      <a-textarea
-        class="glgj-topInfo"
-        v-model="glgjInfo"
-        placeholder="Controlled autosize"
-        :auto-size="{ minRows: 3, maxRows: 5 }"
-      />
-      <tableList></tableList>
-    </div>
-    <!-- 拟聘用干部报批信息 -->
-    <Divider type="2" title="拟聘用干部报批信息" :top="0" :bottom="0" id="npygb">
-      <template v-slot:right>
-        <a-button type="link" class="a-button"> 查看及编辑详情 </a-button>
-        <a-checkbox class="glgj-head-btn glgj-head-checkbox"> </a-checkbox>
-      </template>
-    </Divider>
-    <div class="glgj">
-      <a-textarea
-        class="glgj-topInfo"
-        v-model="glgjInfo"
-        placeholder="Controlled autosize"
-        :auto-size="{ minRows: 3, maxRows: 5 }"
-      />
-      <tableListOne></tableListOne>
-    </div>
-    <!-- 发文附件 -->
-    <Divider type="2" title="发文附件" :top="0" :bottom="0" id="fwfj">
-      <template v-slot:right>
-        <a-button type="link" class="a-button"> 查看及编辑详情 </a-button>
-        <a-checkbox class="glgj-head-btn glgj-head-checkbox"> </a-checkbox>
-      </template>
-    </Divider>
-    <div class="glgj">
-      <a-textarea
-        class="glgj-topInfo"
-        v-model="glgjInfo"
-        placeholder="Controlled autosize"
-        :auto-size="{ minRows: 3, maxRows: 5 }"
-      />
-      <tableList></tableList>
-    </div>
-    <!-- 审批记录 -->
-    <Divider type="2" title="审批记录" :top="0" :bottom="0" id="shpj"> </Divider>
-    <div class="glgj">
-      <div class="glgj-steps">
-        <template>
-          <a-steps progress-dot :current="2" direction="vertical">
-            <a-step v-for="(item, index) in steps" :key="index">
-              <template v-slot:title>
-                <img class="step-logo" :src="item.img || imgLogo" alt="" />
-                <p>{{ item.name }}</p>
-              </template>
-              <template v-slot:subTitle>{{ item.time }} </template>
-              <template v-slot:description>{{ item.message }} </template>
-            </a-step>
-          </a-steps>
-        </template>
-      </div>
-    </div>
-    <div class="footer-info">
-      <a-textarea class="footer-info-topInfo" placeholder="请输入审批意见" :auto-size="{ minRows: 3, maxRows: 5 }" />
-      <div class="footer-info-btns">
-        <a-space>
-          <a-button type="dashed">保存草稿</a-button>
-          <a-button>转办</a-button>
-          <a-button>驳回</a-button>
-          <a-button type="primary">同意</a-button>
-        </a-space>
-      </div>
-    </div>
-  </div>
+  </page-header-wrapper>
 </template>
 
 <script>
@@ -209,24 +219,36 @@ export default {
 @import '~ant-design-vue/es/style/themes/default.less';
 .content {
   width: 100%;
+  margin-bottom: 60px;
   .footer-info {
-    padding: 35px 52px;
-    &-btns {
-      display: flex;
-      justify-content: flex-end;
-    }
-    &-topInfo {
-      background: #ffffff;
-      border: 1px solid #dddddd;
-      border-radius: 4px;
-      padding: 19px 16px 30px;
-      font-size: 14px;
-      font-family: Microsoft YaHei;
-      font-weight: 400;
-      color: #333333;
-      margin-bottom: 31px;
+    position: fixed;
+    background: #fff;
+    bottom: 0;
+    width: 100vw;
+    left: 0;
+    z-index: 100;
+    &-content {
+      padding: 24px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      &-btns {
+        display: flex;
+        justify-content: flex-end;
+      }
+      &-topInfo {
+        background: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 4px;
+        padding: 19px 16px 30px;
+        font-size: 14px;
+        font-family: Microsoft YaHei;
+        font-weight: 400;
+        color: #333333;
+        margin-bottom: 31px;
+      }
     }
   }
+  // 步骤条
   .glgj-steps {
     margin-left: 120px;
     /deep/.ant-steps-item-content {
@@ -265,7 +287,7 @@ export default {
     width: 200px;
     position: fixed;
     right: -39px;
-    top: 84px;
+    top: 204px;
     background: transparent;
   }
   .a-button {

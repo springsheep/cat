@@ -15,8 +15,16 @@ const constantRouterComponents = {
   '500': () => import(/* webpackChunkName: "error" */ '@/views/exception/500'),
 
   // 你需要动态引入的页面组件
+  //报表查询
+  cadreWork: () => import('@/views/reportQuery/cadreWork'),
+  orgChange: () => import('@/views/reportQuery/orgChange'),
+  currentCadres: () => import('@/views/reportQuery/currentCadres'),
+  postReport: () => import('@/views/reportQuery/postReport'),
+  orgReport: () => import('@/views/reportQuery/orgReport'),
+
   extensionContainer: () => import('@/views/processManagement/extensionContainer'),
   processferc: () => import('@/views/processManagement/processferc'),
+  processOrgChange: () => import('@/views/processManagement/processOrgChange/index'),
   postManagement: () => import('@/views/postManagement/postManagement'),
   processManagement: () => import('@/views/processManagement/processManagement'),
   homePage: () => import('@/views/homePage/homePage'),

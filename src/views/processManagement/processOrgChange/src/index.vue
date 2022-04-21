@@ -4,34 +4,47 @@
  * @Author: 张鹏
  * @Date: 2022-04-20 09:06:16
  * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-20 17:03:05
+ * @LastEditTime: 2022-04-21 17:08:24
 -->
 <template>
-  <div class="list">
-    <h-searchForm :formOptions="formOptions" btnItems="search, export, reset" @onSearch="searchInfo">
-      <template v-slot:btnItems>
-        <a-button type="primary" class="btn-export" size="default">同步SAP</a-button>
-      </template>
-    </h-searchForm>
-    <div class="list-table">
-      <h-table :columns="columns" :loadData="queryTables" size="middle">
-        <!-- 状态 -->
-        <template #status="text">
-          <a-badge v-if="text === 1" status="success" text="正常" />
-          <a-badge v-else status="error" text="异常" />
+  <page-header-wrapper>
+    <div class="list">
+      <h-searchForm :formOptions="formOptions" btnItems="search, export, reset" @onSearch="searchInfo">
+        <template v-slot:btnItems>
+          <a-space>
+            <a-button type="primary" class="btn-export" size="default">添加</a-button>
+            <a-button>导入</a-button>
+            <a-button>导出</a-button>
+            <a-button>删除</a-button>
+            <a-button>下载导入模板</a-button>
+          </a-space>
         </template>
-        <!-- 操作 -->
-        <template #action>
-          <a @click="edit">编辑</a>
-        </template>
-      </h-table>
+      </h-searchForm>
+      <div class="list-table">
+        <h-table :columns="columns" :loadData="queryTables" size="middle">
+          <!-- 状态 -->
+          <template #status="text">
+            <a-badge v-if="text === 1" status="success" text="正常" />
+            <a-badge v-else status="error" text="异常" />
+          </template>
+          <!-- 操作 -->
+          <template #action>
+            <a-space>
+              <a @click="edit">编辑</a>
+              <a @click="edit">删除</a>
+            </a-space>
+          </template>
+        </h-table>
+        <Divider type="1" title="上传组织架构图" :top="0" :bottom="0"> </Divider>
+      </div>
     </div>
-    <EditPostMangement ref="alert" :data="current" @freash="freash" />
-  </div>
+    <alertPage ref="alert" :data="current" @freash="freash" />
+  </page-header-wrapper>
 </template>
 
 <script>
-import EditPostMangement from './EditPostMangement.vue'
+import alertPage from './alertPage'
+import { Divider } from '@/components'
 const queryTables = () => {
   return new Promise((resolve) => {
     const rows = []
@@ -50,7 +63,7 @@ const queryTables = () => {
 }
 
 export default {
-  components: { EditPostMangement },
+  components: { Divider, alertPage },
   data() {
     return {
       current: {},
@@ -81,34 +94,6 @@ export default {
           events: {
             // antd组件方法
             change(val) {
-              console.log(val)
-            },
-          },
-        },
-        {
-          label: '文件名称', // label文字
-          prop: 'fileName', // 字段名
-          type: 'input', // 指定antd组件
-          defaultValue: '', // 字段初始值
-          placeholder: '请输入用户名', // antd组件属性
-          // rules: [{ required: true, message: '必填项', trigger: 'blur' }], // antd组件属性
-          events: {
-            // antd组件方法
-            input(val) {
-              console.log(val)
-            },
-          },
-        },
-        {
-          label: '申请单号', // label文字
-          prop: 'orderNum', // 字段名
-          type: 'input', // 指定antd组件
-          defaultValue: '', // 字段初始值
-          placeholder: '请输入申请单号', // antd组件属性
-          // rules: [{ required: true, message: '必填项', trigger: 'blur' }], // antd组件属性
-          events: {
-            // antd组件方法
-            input(val) {
               console.log(val)
             },
           },

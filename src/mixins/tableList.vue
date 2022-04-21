@@ -222,7 +222,6 @@ export default {
           width: 200,
         },
       ],
-      btns: [],
     }
   },
   methods: {

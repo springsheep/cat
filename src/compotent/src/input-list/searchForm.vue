@@ -4,7 +4,7 @@
  * @Author: 张鹏
  * @Date: 2022-04-20 09:25:22
  * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-21 13:47:11
+ * @LastEditTime: 2022-04-21 15:38:15
 -->
 <template>
   <div class="search-form-box">
@@ -226,7 +226,7 @@ export default {
   }
 }
 .search-form-box {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 
   .btn-box {
     padding-top: 5px;

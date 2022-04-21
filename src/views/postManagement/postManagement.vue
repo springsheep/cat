@@ -4,25 +4,27 @@
  * @Author: 张鹏
  * @Date: 2022-04-19 17:15:44
  * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-20 17:25:07
+ * @LastEditTime: 2022-04-21 15:05:33
 -->
 <template>
-  <div class="content">
-    <!-- 操作 -->
-    <a-card
-      :bordered="false"
-      :tabList="operationTabList"
-      :activeTabKey="operationActiveTabKey"
-      @tabChange="
-        (key) => {
-          this.operationActiveTabKey = key
-        }
-      "
-    >
-      <TableListOne v-if="operationActiveTabKey === '1'" />
-      <TableListTwo v-if="operationActiveTabKey === '2'" />
-    </a-card>
-  </div>
+  <page-header-wrapper>
+    <div class="content">
+      <!-- 操作 -->
+      <a-card
+        :bordered="false"
+        :tabList="operationTabList"
+        :activeTabKey="operationActiveTabKey"
+        @tabChange="
+          (key) => {
+            this.operationActiveTabKey = key
+          }
+        "
+      >
+        <TableListOne v-if="operationActiveTabKey === '1'" />
+        <TableListTwo v-if="operationActiveTabKey === '2'" />
+      </a-card>
+    </div>
+  </page-header-wrapper>
 </template>
 
 <script>

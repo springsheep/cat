@@ -503,7 +503,28 @@ const userNav = options => {
         title: '在途流程'
       },
       component: 'extensionContainer'
+    }, {
+      name: 'processManagement',
+      parentId: 4,
+      id: 41,
+      meta: {
+        title: '申请单详情',
+        show: false
+      },
+      component: 'processManagement'
     },
+    {
+      name: 'processOrgChange',
+      parentId: 4,
+      id: 41,
+      meta: {
+        title: '组织调整',
+        show: false
+      },
+      component: 'processOrgChange'
+    },
+
+
     {
       name: 'processferc',
       parentId: 4,
@@ -527,9 +548,51 @@ const userNav = options => {
       meta: {
         title: '报表查询'
       },
-      redirect: '/dashboard/analysis',
       component: 'RouteView'
+    },
+    {
+      name: 'orgReport',
+      parentId: 12,
+      id: 121,
+      meta: {
+        title: '组织报表'
+      },
+      component: 'orgReport'
+    },
+    {
+      name: 'postReport',
+      parentId: 12,
+      id: 1222,
+      meta: {
+        title: '岗位报表'
+      },
+      component: 'postReport'
     }, {
+      name: 'currentCadres',
+      parentId: 12,
+      id: 123,
+      meta: {
+        title: '现任干部报表'
+      },
+      component: 'currentCadres'
+    }, {
+      name: 'cadreWork',
+      parentId: 12,
+      id: 123,
+      meta: {
+        title: '干部工作履历和任命记录'
+      },
+      component: 'cadreWork'
+    }, {
+      name: 'orgChange',
+      parentId: 12,
+      id: 124,
+      meta: {
+        title: '组织变更记录'
+      },
+      component: 'orgChange'
+    },
+    {
       name: 'regulations',
       parentId: 0,
       id: 13,
