@@ -4,7 +4,7 @@
  * @Author: 张鹏
  * @Date: 2022-04-18 11:17:20
  * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-21 15:03:52
+ * @LastEditTime: 2022-05-08 16:21:26
  */
 /**
  * 项目默认配置项
@@ -31,7 +31,7 @@ export default {
   menu: {
     locale: true
   },
-  title: '组织调整与干部任免',
+  title: '养猫网站',
   pwa: false,
   iconfontUrl: '',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'

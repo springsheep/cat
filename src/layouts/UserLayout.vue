@@ -1,5 +1,4 @@
 <template>
-
   <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
     <div class="container">
       <div class="user-layout-lang">
@@ -9,8 +8,8 @@
         <div class="top">
           <div class="header">
             <a href="/">
-              <img src="~@/assets/logo.svg" class="logo" alt="logo">
-              <span class="title">Ant Design</span>
+              <img src="~@/assets/logo.svg" class="logo" alt="logo" />
+              <span class="title">一起养猫吧</span>
             </a>
           </div>
           <div class="desc">
@@ -26,9 +25,7 @@
             <a href="_self">隐私</a>
             <a href="_self">条款</a>
           </div>
-          <div class="copyright">
-            Copyright &copy; 2018 vueComponent
-          </div>
+          <div class="copyright">Copyright &copy; 2018 vueComponent</div>
         </div>
       </div>
     </div>
@@ -42,15 +39,15 @@ import SelectLang from '@/components/SelectLang'
 export default {
   name: 'UserLayout',
   components: {
-    SelectLang
+    SelectLang,
   },
   mixins: [deviceMixin],
-  mounted () {
+  mounted() {
     document.body.classList.add('userLayout')
   },
-  beforeDestroy () {
+  beforeDestroy() {
     document.body.classList.remove('userLayout')
-  }
+  },
 }
 </script>
 
@@ -122,7 +119,7 @@ export default {
 
           .title {
             font-size: 33px;
-            color: rgba(0, 0, 0, .85);
+            color: rgba(0, 0, 0, 0.85);
             font-family: Avenir, 'Helvetica Neue', Arial, Helvetica, sans-serif;
             font-weight: 600;
             position: relative;
@@ -172,7 +169,6 @@ export default {
     a {
       text-decoration: none;
     }
-
   }
 }
 </style>

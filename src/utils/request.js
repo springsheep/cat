@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: ----描述----
+ * @version: 1.0
+ * @Author: 张鹏
+ * @Date: 2022-05-01 15:29:35
+ * @LastEditors: 张鹏
+ * @LastEditTime: 2022-05-07 17:13:14
+ */
 import axios from 'axios'
 import store from '@/store'
 import storage from 'store'
@@ -14,7 +22,9 @@ const request = axios.create({
 
 // 异常拦截处理器
 const errorHandler = (error) => {
+  console.log(error)
   if (error.response) {
+    console.log(data)
     const data = error.response.data
     // 从 localstorage 获取 token
     const token = storage.get(ACCESS_TOKEN)
@@ -47,7 +57,7 @@ request.interceptors.request.use(config => {
   // 如果 token 存在
   // 让每个请求携带自定义 token 请根据实际情况自行修改
   if (token) {
-    config.headers[ACCESS_TOKEN] = token
+    config.headers.accessToken = token.body
   }
   return config
 }, errorHandler)
@@ -59,7 +69,7 @@ request.interceptors.response.use((response) => {
 
 const installer = {
   vm: {},
-  install (Vue) {
+  install(Vue) {
     Vue.use(VueAxios, request)
   }
 }

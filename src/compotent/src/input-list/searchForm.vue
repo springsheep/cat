@@ -4,7 +4,7 @@
  * @Author: 张鹏
  * @Date: 2022-04-20 09:25:22
  * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-21 15:38:15
+ * @LastEditTime: 2022-05-07 22:40:59
 -->
 <template>
   <div class="search-form-box">
@@ -189,6 +189,7 @@ export default {
     },
     onReset() {
       this.$refs.formRef.resetFields()
+      this.$emit('onReset', this.formData)
     },
     // 添加初始值
     addDefaultValue() {

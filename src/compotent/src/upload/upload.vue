@@ -1,10 +1,5 @@
 <template>
-  <div
-    :class="[
-      'h-upload-box-wrap',
-      { 'h-upload-block-wrap': block, 'h-upload-hide-btn': hideUploadBtn },
-    ]"
-  >
+  <div :class="['h-upload-box-wrap', { 'h-upload-block-wrap': block, 'h-upload-hide-btn': hideUploadBtn }]">
     <!-- 内置拖拽上传的样式 -->
     <a-upload-dragger v-if="drag" v-bind="newAttrs" v-on="newListeners">
       <p class="ant-upload-drag-icon">
@@ -20,12 +15,8 @@
     <!-- 普通的文件上传 -->
     <a-upload v-else v-bind="newAttrs" v-on="newListeners">
       <slot>
-        <a-button v-if="showDirectoryUpload"
-          ><a-icon type="upload" />文件夹上传</a-button
-        >
-        <a-button v-else-if="showFileUpload"
-          ><a-icon type="upload" />点击上传</a-button
-        >
+        <a-button v-if="showDirectoryUpload"><a-icon type="upload" />文件夹上传</a-button>
+        <a-button v-else-if="showFileUpload"><a-icon type="upload" />点击上传</a-button>
         <div v-else-if="showImageUpload" :class="`h-upload-${listType}`">
           <a-icon type="plus" class="icon-plus" />
           <div class="ant-upload-text">上传</div>
@@ -38,20 +29,10 @@
     </a-upload>
 
     <!-- 文件夹上传 -->
-    <div
-      v-if="directory && showDirectory && value.length"
-      class="directory-list-main"
-    >
-      <div
-        class="progress-item"
-        v-for="item in value"
-        :key="item.dirname"
-        status="success"
-      >
+    <div v-if="directory && showDirectory && value.length" class="directory-list-main">
+      <div class="progress-item" v-for="item in value" :key="item.dirname" status="success">
         <span class="name-box">
-          <span class="name"
-            >{{ item.dirname }}({{ item.current }}/{{ item.total }})</span
-          >
+          <span class="name">{{ item.dirname }}({{ item.current }}/{{ item.total }})</span>
           <a-icon
             v-if="!newAttrs.disabled"
             type="close"
@@ -59,26 +40,19 @@
             @click="onRemoveDirectory(item, value)"
           ></a-icon>
         </span>
-        <a-progress
-          :percent="parseInt((item.current / item.total) * 100) || 0"
-        ></a-progress>
+        <a-progress :percent="parseInt((item.current / item.total) * 100) || 0"></a-progress>
       </div>
     </div>
-    <h-viewer
-      v-if="!showDirectories"
-      v-model="fileList"
-      :show-file-list="false"
-      ref="viewer"
-    ></h-viewer>
+    <h-viewer v-if="!showDirectories" v-model="fileList" :show-file-list="false" ref="viewer"></h-viewer>
   </div>
 </template>
 
 <script>
-import HViewer from "../viewer";
-import { createId } from "../utils/index";
+import HViewer from '../viewer'
+import { createId } from '../utils/index'
 
 export default {
-  name: "h-upload",
+  name: 'h-upload',
   data() {
     return {
       // 本次选择的文件列表，每次上传完成后进行删除，删除完了之后代表全部上传成功，然后再调用 @uploaded 回调
@@ -93,7 +67,7 @@ export default {
       beforeUploadList: [],
       // 记录失败的文件列表
       beforeUploadFailList: [],
-    };
+    }
   },
   components: {
     HViewer,
@@ -126,23 +100,22 @@ export default {
      */
     action: {
       type: String,
-      default: "",
+      default: '',
     },
     /**
      * 文件预览地址，如果传递了就使用，否则去取 $api.download
      */
     downloadUrl: {
       type: String,
-      default: "",
+      default: '',
     },
     /**
      * 文件的上传类型，根据不同的 listType 切换成不同的上传样式
      */
     listType: {
       type: String,
-      default: "text",
-      validator: (value) =>
-        ["text", "picture", "picture-card"].indexOf(value) > -1,
+      default: 'text',
+      validator: (value) => ['text', 'picture', 'picture-card'].indexOf(value) > -1,
     },
     /**
      * 同 a-upload 的 beforeUpload
@@ -164,8 +137,8 @@ export default {
     keys: {
       type: Object,
       default: () => ({
-        name: "fileName",
-        url: "filePath",
+        name: 'fileName',
+        url: 'filePath',
       }),
     },
     /**
@@ -236,9 +209,9 @@ export default {
   computed: {
     // 属性合并
     newAttrs() {
-      let className = "h-upload-wrap";
+      let className = 'h-upload-wrap'
       if (this.autoScrollFileList) {
-        className += " h-auto-scroll-upload-wrap";
+        className += ' h-auto-scroll-upload-wrap'
       }
       const props = {
         ...this.$attrs,
@@ -251,16 +224,16 @@ export default {
         customRequest: this.customRequest,
         remove: this.onRemove,
         beforeUpload: this.onBeforeUpload,
-      };
+      }
       // 如果当前是文件夹上传且要显示成文件夹的形式并且也没有自定义上传
       if (this.showDirectories && !this.customRequest) {
-        props.customRequest = this.onAddUploadList;
+        props.customRequest = this.onAddUploadList
       }
       // 如果是要显示成文件夹进度
       if (this.showDirectories) {
-        props.showUploadList = false;
+        props.showUploadList = false
       }
-      return props;
+      return props
     },
     // 事件合并
     newListeners() {
@@ -268,82 +241,77 @@ export default {
         ...this.$listeners,
         change: this.onUploadChange,
         preview: this.onPreview,
-      };
+      }
     },
     // 是否显示文件夹列表
     showDirectories() {
-      return this.directory && this.showDirectory;
+      return this.directory && this.showDirectory
     },
     // 文件夹上传
     showDirectoryUpload() {
-      return this.directory;
+      return this.directory
     },
     // 文件上传
     showFileUpload() {
-      return this.listType === "text" || this.listType === "picture";
+      return this.listType === 'text' || this.listType === 'picture'
     },
     // 图片上传
     showImageUpload() {
-      return this.listType === "picture-card";
+      return this.listType === 'picture-card'
     },
     // 是否隐藏上传操作，文件夹上传不支持
     hideUploadBtn() {
       if (this.autoHideUploadBtn) {
         // 如果是单选
         return (
-          (!this.showDirectory &&
-            !this.multiple &&
-            this.fileList.length === 1) ||
+          (!this.showDirectory && !this.multiple && this.fileList.length === 1) ||
           // 否则如果是多选且有个数限制
-          (!this.showDirectory &&
-            this.multiple &&
-            this.limit !== -1 &&
-            this.fileList.length === this.limit)
-        );
+          (!this.showDirectory && this.multiple && this.limit !== -1 && this.fileList.length === this.limit)
+        )
       }
-      return false;
+      return false
     },
     actionUrl() {
-      return this.action || (this.$api && this.$api.upload) || "#";
+      return this.action || (this.$api && this.$api.upload) || '#'
     },
     // value 字段兼容
     fileList() {
       if (!this.value || this.value.filter(Boolean).length <= 0) {
-        return [];
+        return []
       }
       if (this.showDirectories) {
-        let files = [];
+        let files = []
         this.value.forEach((item) => {
-          files = files.concat(this.transformFields(item.files || []));
-        });
-        return files;
+          files = files.concat(this.transformFields(item.files || []))
+        })
+        return files
       }
-      return this.transformFields(this.value);
+      return this.transformFields(this.value)
     },
   },
   created() {
     // 如果是文件夹上传，并且设置了默认值，初始化的时候给默认值添加 uid 等字段，方便组件内部展示和操作
     if (this.showDirectories && this.value && this.value.length) {
       this.$emit(
-        "input",
+        'input',
         this.value.map((dir) => {
           return {
             ...dir,
             files: this.transformFields(dir.files || []),
-          };
+          }
         })
-      );
+      )
     }
   },
   methods: {
     // 返回用于提交表单的文件列表
     getFormData() {
       if (!this.value) {
-        return [];
+        return []
       }
       // 如果是文件夹上传处理成约定格式
       if (this.showDirectories) {
-        return this.fileToFormData(this.value);
+        return this.fileToFormData(this.value)
       }
       return this.value.map((item) =>
         item.response && item.response.code === 0
@@ -352,7 +320,7 @@ export default {
               filePath: this.getFileUrl(item),
             }
           : item
-      );
+      )
     },
     // 将文件对象转换成接口数据
     fileToFormData(files) {
@@ -364,12 +332,12 @@ export default {
               return {
                 fileName: file.name || file[this.keys.name],
                 filePath: this.getFileUrl(file),
-              };
+              }
             }),
-          };
+          }
         }
-        return { ...item };
-      });
+        return { ...item }
+      })
     },
     // 字段转换
     transformFields(items) {
@@ -379,20 +347,18 @@ export default {
           uid: item.uid || createId(),
           name: item.name || item[this.keys.name],
           url: this.getFileUrl(item),
-          status: item.status || "done",
-        };
-      });
+          status: item.status || 'done',
+        }
+      })
     },
     // 将文件列表转换成文件夹的形式
     fileListToDirectory(fileList) {
-      const files = [...this.value];
+      const files = [...this.value]
       fileList.forEach((file) => {
-        const relativePath =
-          file.relativePath ||
-          (file.originFileObj && file.originFileObj.webkitRelativePath);
-        const dirname = `${relativePath.split("/").shift()}/`;
+        const relativePath = file.relativePath || (file.originFileObj && file.originFileObj.webkitRelativePath)
+        const dirname = `${relativePath.split('/').shift()}/`
         // 如果当前没有找到文件夹就新增一个
-        const currentDir = files.find((dir) => dir.dirname === dirname);
+        const currentDir = files.find((dir) => dir.dirname === dirname)
         if (!currentDir) {
           files.push({
             // 生成随机字符串
@@ -401,233 +367,196 @@ export default {
             current: 0,
             total: 1,
             files: [file],
-          });
+          })
         } else if (!currentDir.files.find((f) => f.uid === file.uid)) {
           // 否则增加总计
-          currentDir.total += 1;
-          currentDir.files.push(file);
+          currentDir.total += 1
+          currentDir.files.push(file)
         }
         if (currentDir && file.uploaded) {
-          currentDir.current += 1;
+          currentDir.current += 1
         }
-      });
-      return files;
+      })
+      return files
     },
     // 上传文件
     // ! 在 beforeUpload 里面即使 return false 也会触发 change，https://github.com/ant-design/ant-design/issues/15561
     onUploadChange(info) {
       // 处理上传返回值
-      this.fileChange(info);
-      let fileList = [...info.fileList];
+      this.fileChange(info)
+      let fileList = [...info.fileList]
       if (!this.multiple) {
-        fileList = info.fileList.slice(-1);
+        fileList = info.fileList.slice(-1)
       }
       // 上一次上传的文件列表
-      const oldFileList = fileList.filter(
-        (item) => !this.currentFileListUids.includes(item.uid)
-      );
+      const oldFileList = fileList.filter((item) => !this.currentFileListUids.includes(item.uid))
       // 本次上传的文件列表
-      const newFileList = fileList.filter((item) =>
-        this.currentFileListUids.includes(item.uid)
-      );
+      const newFileList = fileList.filter((item) => this.currentFileListUids.includes(item.uid))
 
       fileList = newFileList
         // 取出 name 和 url
         .map((file, i) => {
-          const isSuccess =
-            file.response &&
-            (+file.response.code === 0 || +file.response.code === 200);
-          const isErrorCode =
-            file.response &&
-            (+file.response.code !== 0 || +file.response.code !== 200);
-          if (file.status === "done" && isSuccess && file.response.data) {
-            const data = file.response.data;
-            const d = Array.isArray(data) ? data.slice(-1).shift() : data;
-            const name = d.name || d[this.keys.name];
+          const isSuccess = file.response && (+file.response.code === 0 || +file.response.code === 200)
+          const isErrorCode = file.response && (+file.response.code !== 0 || +file.response.code !== 200)
+          if (file.status === 'done' && isSuccess && file.response.data) {
+            const data = file.response.data
+            const d = Array.isArray(data) ? data.slice(-1).shift() : data
+            const name = d.name || d[this.keys.name]
             if (name) {
-              file.name = name;
-              file.url = this.getFileUrl(d);
-              file.originalUrl = d[this.keys.url] || "";
+              file.name = name
+              file.url = this.getFileUrl(d)
+              file.originalUrl = d[this.keys.url] || ''
             }
             // 设置文件已经上传完毕的标识
-            file.uploaded = true;
+            file.uploaded = true
             // 删除当前已经上传的文件
-            this.currentFileList = this.currentFileList.filter(
-              (item) => item.uid !== file.uid
-            );
+            this.currentFileList = this.currentFileList.filter((item) => item.uid !== file.uid)
 
             // 如果上传失败了，抛出提示，并清掉当前文件（不展示在列表里面），页面上可能会看到文件闪一下
             // status 字段如果 beforeUpload 里面返回 false 的话就是 undefined，这种情况也处理成上传失败
-          } else if (
-            file.status === undefined ||
-            file.status === "error" ||
-            isErrorCode
-          ) {
+          } else if (file.status === undefined || file.status === 'error' || isErrorCode) {
             // 只有第一次才抛出错误提示并添加到错误列表
-            if (
-              !this.currentFailFileList.find((item) => item.uid === file.uid)
-            ) {
-              this.currentFailFileList.push(file);
+            if (!this.currentFailFileList.find((item) => item.uid === file.uid)) {
+              this.currentFailFileList.push(file)
               // 如果文件不是属于超出限制的再给出上传出错的提示
               if (!file.beyond) {
                 //  如果后端提供了错误就拼接一下抛出来
                 this.$message.error(
-                  `${
-                    file.response && file.response.message
-                      ? `${file.response.message}，`
-                      : ""
-                  }文件 ${file.name} 上传失败`
-                );
+                  `${file.response && file.response.message ? `${file.response.message}，` : ''}文件 ${
+                    file.name
+                  } 上传失败`
+                )
               }
             }
             // 删除当前已经上传的文件
-            this.currentFileList = this.currentFileList.filter(
-              (item) => item.uid !== file.uid
-            );
+            this.currentFileList = this.currentFileList.filter((item) => item.uid !== file.uid)
             // 只要满足了上面的条件就说明当前文件上传失败了，直接处理掉，同时如果 change 被重复触发的话，第二次的重复调用也不会再更新一次数据
             // return null
           }
           // status 是上传中的
-          return file;
+          return file
         })
-        .filter((f) => f);
+        .filter((f) => f)
 
       // 更新显示的文件列表
       if (this.showDirectories) {
         // 如果是展示成文件夹的形式
-        this.$emit(
-          "input",
-          this.fileListToDirectory(oldFileList.concat(fileList))
-        );
+        this.$emit('input', this.fileListToDirectory(oldFileList.concat(fileList)))
       } else {
-        this.$emit("input", oldFileList.concat(fileList));
+        this.$emit('input', oldFileList.concat(fileList))
       }
 
-      this.$emit("change", info);
+      this.$emit('change', info)
 
       // 判断是否已经上传完毕
-      if (
-        this.beforeUploadFileLength ===
-        fileList.filter((item) => item.status === "done").length
-      ) {
+      if (this.beforeUploadFileLength === fileList.filter((item) => item.status === 'done').length) {
         // 最后一次回调出去
-        this.$emit("uploaded", fileList, this.currentFailFileList);
+        this.$emit('uploaded', fileList, this.currentFailFileList)
         // 清空上传失败的列表
-        this.currentFailFileList = [];
-        this.currentFileListUids = [];
+        this.currentFailFileList = []
+        this.currentFileListUids = []
         // 在这里重置 beforeUpload 里面的标识
-        this.beforeUploadFileLength = 0;
+        this.beforeUploadFileLength = 0
       }
     },
     // 获取文件地址
     getFileUrl(data) {
       // 如果原本就存在访问地址
       if (data.url) {
-        return data.url;
+        return data.url
       }
-      const url = data[this.keys.url] || "";
+      const url = data[this.keys.url] || ''
       // 如果是 http 或者 https 开头
       if (url.match(/^http(s)?:\/\//)) {
-        return url;
+        return url
       }
       // 如果是 blob 开头
       if (url.match(/^blob:/)) {
-        return url;
+        return url
       }
       // 否则再拼接完整的地址
-      return (this.downloadUrl || (this.$api ? this.$api.download : "")) + url;
+      return (this.downloadUrl || (this.$api ? this.$api.download : '')) + url
     },
     // 预览
     onPreview(file) {
-      const index = this.fileList.findIndex((item) => item.uid === file.uid);
-      this.$refs.viewer.showModal(file, index === -1 ? 0 : index);
+      const index = this.fileList.findIndex((item) => item.uid === file.uid)
+      this.$refs.viewer.showModal(file, index === -1 ? 0 : index)
     },
     // 删除
     async onRemove(file) {
-      const res = await this.remove(file);
+      const res = await this.remove(file)
       if (!res) {
-        return false;
+        return false
       }
-      const fileList = this.fileList
-        .concat()
-        .filter((item) => item.uid !== file.uid);
-      this.$emit("input", fileList);
-      return false;
+      const fileList = this.fileList.concat().filter((item) => item.uid !== file.uid)
+      this.$emit('input', fileList)
+      return false
     },
     // 上传前检测，即使外部返回了 false 这里还是能拿到当前选择的所有文件
     onBeforeUpload(file, fileList) {
       // 更新当前上传的文件，通过 uid 标识，onBeforeUpload 和 change 里面拿到的 uid 是一致的
       fileList.forEach((item) => {
         if (!this.currentFileList.find((file) => file.uid === item.uid)) {
-          this.currentFileList.push(item);
+          this.currentFileList.push(item)
           // 记录缓存数据
-          this.currentFileListUids.push(item.uid);
+          this.currentFileListUids.push(item.uid)
         }
-      });
+      })
 
-      this.beforeUploadFileLength += 1;
+      this.beforeUploadFileLength += 1
       // 不是单选且总文件数超过了设置的总文件数
-      if (
-        this.multiple &&
-        this.limit > 0 &&
-        this.fileList.length + fileList.length > this.limit
-      ) {
+      if (this.multiple && this.limit > 0 && this.fileList.length + fileList.length > this.limit) {
         // 如果文件超出了上传个数限制，将状态全部设置为失败
         fileList.forEach((item) => {
-          item.status = "error";
+          item.status = 'error'
           // 添加文件超出限制的标识，change 里面用来判断是否给出提示
-          item.beyond = true;
-        });
+          item.beyond = true
+        })
         // 因为 onBeforeUpload 这个方法是，选择了多少个文件，就会被重复调用多少次，所以只要进了上面这个判断，就等到最后一次调用再给出提示
         if (this.beforeUploadFileLength === fileList.length) {
-          this.beforeUploadFileLength = 0;
-          this.$message.error(`最多支持上传 ${this.limit} 个文件`);
+          this.beforeUploadFileLength = 0
+          this.$message.error(`最多支持上传 ${this.limit} 个文件`)
         }
-        return false;
+        return false
       }
-      return this.beforeUpload(file, fileList);
+      return this.beforeUpload(file, fileList)
     },
     // 文件夹删除回调
     onRemoveDirectory(file, fileList) {
       this.$emit(
-        "input",
+        'input',
         fileList.filter((item) => item.uid !== file.uid)
-      );
+      )
     },
     // 上传前收集文件列表
     onAddUploadList(file) {
-      this.beforeUploadList.push(file);
-      clearTimeout(this.timer);
-      this.timer = null;
+      this.beforeUploadList.push(file)
+      clearTimeout(this.timer)
+      this.timer = null
       // 文件夹上传的时候，是所有文件处理就绪之后再来调用的本方法，所以只要调用了这个方法就说明文件列表已经是全部的了，然后再启动并发上传
       this.timer = setTimeout(() => {
-        clearTimeout(this.timer);
-        this.timer = null;
+        clearTimeout(this.timer)
+        this.timer = null
         this.runConcurrentUpload().then((res) => {
-          console.log("上传结果");
-          console.log(res);
-          const length = this.beforeUploadFailList.length;
-          this.$message.success(
-            `文件夹上传成功${
-              length ? `，本次上传 ${length} 个文件上传失败` : ""
-            }`
-          );
+          console.log('上传结果')
+          const length = this.beforeUploadFailList.length
+          this.$message.success(`文件夹上传成功${length ? `，本次上传 ${length} 个文件上传失败` : ''}`)
           // 清空上一次失败的文件
-          this.beforeUploadFailList = [];
-        });
-      }, 300);
+          this.beforeUploadFailList = []
+        })
+      }, 300)
     },
     // 启动并发上传
     runConcurrentUpload() {
       const recursion = (arr) => {
-        const currentFile = arr.shift();
+        const currentFile = arr.shift()
         return this.onCustomUpload(currentFile)
           .then(() => {
             // 如果还没上传完，继续
             if (arr.length !== 0) {
-              return recursion(arr);
+              return recursion(arr)
             }
-            return true;
+            return true
           })
           .catch(() => {
             // 如果失败了进行一次重试
@@ -635,57 +564,52 @@ export default {
               .then(() => {
                 // 如果还没上传完，继续
                 if (arr.length !== 0) {
-                  return recursion(arr);
+                  return recursion(arr)
                 }
-                return true;
+                return true
               })
               .catch((res) => {
                 // 记录失败的文件
-                this.beforeUploadFailList.push(currentFile);
+                this.beforeUploadFailList.push(currentFile)
                 // 再次尝试也失败了就直接抛出错误
-                const tips = res.message || res.msg;
+                const tips = res.message || res.msg
                 this.$message.error(
-                  `文件 ${currentFile.file.name} 进行第一次重新上传失败${
-                    tips ? `，原因：${tips}` : ""
-                  }`
-                );
-                currentFile.onError(res);
+                  `文件 ${currentFile.file.name} 进行第一次重新上传失败${tips ? `，原因：${tips}` : ''}`
+                )
+                currentFile.onError(res)
                 // 如果还有文件没上传，再次开启上传
                 if (arr.length !== 0) {
-                  return recursion(arr);
+                  return recursion(arr)
                 }
-                return false;
-              });
-          });
-      };
+                return false
+              })
+          })
+      }
       // 并发数
       // 如果文件总数不足最大并发数，取当前文件总数
-      let limit = Math.min(this.concurrentNumber, this.beforeUploadList.length);
+      let limit = Math.min(this.concurrentNumber, this.beforeUploadList.length)
       // 正在进行的所有并发异步操作
-      const asyncList = [];
+      const asyncList = []
       while (limit--) {
-        asyncList.push(recursion(this.beforeUploadList));
+        asyncList.push(recursion(this.beforeUploadList))
       }
       // 所有并发异步操作都完成后，本次并发控制迭代完成
-      return Promise.all(asyncList);
+      return Promise.all(asyncList)
     },
     // 如果是文件夹上传
     async onCustomUpload(file) {
-      const formData = new FormData();
-      const relativePath = file.file.webkitRelativePath;
-      formData.append("file", file.file);
-      formData.append(
-        "directory",
-        relativePath.split("/").slice(0, -1).join("/")
-      );
+      const formData = new FormData()
+      const relativePath = file.file.webkitRelativePath
+      formData.append('file', file.file)
+      formData.append('directory', relativePath.split('/').slice(0, -1).join('/'))
 
-      const request = this.$request || this.$http || this.axios || this.$axios;
+      const request = this.$request || this.$http || this.axios || this.$axios
       if (!request) {
         if (this.$message) {
-          this.$message.error("请先配置 $request 或 $http 或 axios 或 $axios");
-          return;
+          this.$message.error('请先配置 $request 或 $http 或 axios 或 $axios')
+          return
         } else {
-          throw new Error("请先配置 $request 或 $http 或 axios 或 $axios");
+          throw new Error('请先配置 $request 或 $http 或 axios 或 $axios')
         }
       }
       return request
@@ -694,16 +618,16 @@ export default {
         .then((res) => {
           // 成功之后直接调用成功的回调
           if (res.code === 0) {
-            file.onSuccess(res);
-            return res;
+            file.onSuccess(res)
+            return res
           } else {
             // code 不是 0 的处理成失败
-            return Promise.reject(res);
+            return Promise.reject(res)
           }
-        });
+        })
     },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>

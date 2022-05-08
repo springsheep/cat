@@ -1,14 +1,21 @@
+<!--
+ * @Descripttion: ----描述----
+ * @version: 1.0
+ * @Author: 张鹏
+ * @Date: 2022-05-01 15:29:35
+ * @LastEditors: 张鹏
+ * @LastEditTime: 2022-05-07 23:18:48
+-->
 <template>
   <div class="antd-pro-components-article-list-content-index-listContent">
     <div class="description">
-      <slot>
-        {{ description }}
-      </slot>
+      <h3 v-if="title">标题：{{ title }}</h3>
+      <slot> 内容： {{ description }} </slot>
     </div>
-    <div class="extra">
+    <div class="extra" v-if="time">
       <a-avatar :src="avatar" size="small" />
       <a :href="href">{{ owner }}</a> 发布在 <a :href="href">{{ href }}</a>
-      <em>{{ updateAt | moment }}</em>
+      <em>{{ time }}</em>
     </div>
   </div>
 </template>
@@ -19,29 +26,31 @@ export default {
   props: {
     prefixCls: {
       type: String,
-      default: 'antd-pro-components-article-list-content-index-listContent'
+      default: 'antd-pro-components-article-list-content-index-listContent',
     },
     description: {
       type: String,
-      default: ''
+      default: '',
     },
     owner: {
       type: String,
-      required: true
     },
     avatar: {
       type: String,
-      required: true
     },
     href: {
       type: String,
-      required: true
     },
     updateAt: {
       type: String,
-      required: true
-    }
-  }
+    },
+    title: {
+      type: String,
+    },
+    time: {
+      type: String,
+    },
+  },
 }
 </script>
 

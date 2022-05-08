@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: ----描述----
+ * @version: 1.0
+ * @Author: 张鹏
+ * @Date: 2022-05-01 15:29:35
+ * @LastEditors: 张鹏
+ * @LastEditTime: 2022-05-07 18:26:08
+ */
 // with polyfills
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
@@ -10,7 +18,9 @@ import i18n from './locales'
 import { VueAxios } from './utils/request'
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import themePluginConfig from '../config/themePluginConfig'
-
+Vue.prototype.$u = {
+  a: localStorage.getItem('userRole') || "", b: localStorage.getItem('Access-Token') || ''
+}
 // mock
 // WARNING: `mockjs` NOT SUPPORT `IE` PLEASE DO NOT USE IN `production` ENV.
 import './mock'

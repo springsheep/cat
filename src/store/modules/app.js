@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: ----描述----
+ * @version: 1.0
+ * @Author: 张鹏
+ * @Date: 2022-05-01 15:29:35
+ * @LastEditors: 张鹏
+ * @LastEditTime: 2022-05-07 10:51:57
+ */
 import storage from 'store'
 import {
   SIDEBAR_TYPE,
@@ -21,7 +29,7 @@ const app = {
     sideCollapsed: false,
     isMobile: false,
     theme: 'dark',
-    layout: '',
+    layout: localStorage.getItem('layout') || 'topmenu',
     contentWidth: '',
     fixedHeader: false,
     fixedSidebar: false,
@@ -83,7 +91,7 @@ const app = {
     }
   },
   actions: {
-    setLang ({ commit }, lang) {
+    setLang({ commit }, lang) {
       return new Promise((resolve, reject) => {
         commit(APP_LANGUAGE, lang)
         loadLanguageAsync(lang).then(() => {

@@ -43,12 +43,12 @@ const vueConfig = {
     // webpack plugins
     plugins: [
       // Ignore all locale files of moment.js
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-      new webpack.DefinePlugin({
-        APP_VERSION: `"${require('./package.json').version}"`,
-        GIT_HASH: JSON.stringify(getGitHash()),
-        BUILD_DATE: buildDate
-      })
+      // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      // new webpack.DefinePlugin({
+      //   APP_VERSION: `"${require('./package.json').version}"`,
+      //   GIT_HASH: JSON.stringify(getGitHash()),
+      //   BUILD_DATE: buildDate
+      // })
     ],
     // if prod, add externals
     externals: isProd ? assetsCDN.externals : {}
@@ -102,15 +102,18 @@ const vueConfig = {
 
   devServer: {
     // development server port 8000
-    port: 8000
+    port: 8000,
     // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
-    // proxy: {
-    //   '/api': {
-    //     target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
-    //     ws: false,
-    //     changeOrigin: true
-    //   }
-    // }
+    proxy: {
+      '/api': {
+        target: 'http://42.192.129.26:8080',
+        ws: false,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''   // 这种接口配置出来     http://XX.XX.XX.XX:8083/api/login
+        }
+      }
+    }
   },
 
   // disable source map in production

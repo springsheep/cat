@@ -4,14 +4,14 @@
  * @Author: 张鹏
  * @Date: 2022-04-18 17:01:01
  * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-19 10:55:53
+ * @LastEditTime: 2022-05-06 22:48:04
 -->
 <template>
   <div>
-    <Divider title="系统功能" :bottom="10" :top="0" />
+    <banner />
     <a-row :gutter="24">
-      <a-col :sm="24" :md="12" :xl="6" v-for="(item, index) in cardList" :key="index">
-        <a-card hoverable :loading="loading">
+      <a-col :sm="24" :md="12" :xl="8" v-for="(item, index) in cardList" :key="index">
+        <a-card hoverable :loading="loading" style="margin-top: 20px; height: 150px">
           <a-card-meta>
             <template slot="title">{{ item.title }} </template>
             <template slot="description"> {{ item.description }}</template>
@@ -20,67 +20,60 @@
         </a-card>
       </a-col>
     </a-row>
-    <Divider title="组织结构图" :bottom="0" :top="10" />
-    <RelationGraph />
-    <div class="content-table">
-      <Divider title="待审批申请清单" :bottom="10" :top="10" />
-      <div class="content-table-body">
-        <s-table
-          ref="table"
-          size="middle"
-          rowKey="key"
-          :columns="columns"
-          :data="loadData"
-          :alert="options.alert"
-          show-quick-jumper
-          stripe
-        >
-          <span slot="serial" slot-scope="text, record, index">
-            {{ index + 1 }}
-          </span>
-          <span slot="action" slot-scope="text, record">
-            <template>
-              <a @click="handleCheck(record)">审批</a>
-            </template>
-          </span>
-        </s-table>
-      </div>
-    </div>
+    <a-card :loading="loading" title="科普文章" :bordered="false" style="margin-top: 20px">
+      <a-list>
+        <a-list-item :key="index" v-for="(item, index) in activities">
+          <a-list-item-meta>
+            <div slot="title">
+              <a href="#">{{ item.articleName }}</a>
+            </div>
+            <div slot="description">{{ item.articleContext }}</div>
+          </a-list-item-meta>
+        </a-list-item>
+      </a-list>
+    </a-card>
   </div>
 </template>
 
 <script>
 import { Divider } from '@/components'
 import { STable } from '@/components'
-import RelationGraph from './RelationGraph'
+import banner from '../banner.vue'
+import { article, artd } from '@/api/login'
 import { getRoleList, getServiceList } from '@/api/manage'
 export default {
-  components: { Divider, STable, RelationGraph },
+  components: { Divider, STable, banner },
   data() {
     return {
+      activities: [],
       //card骨架
       loading: true,
       //card数据
       cardList: [
         {
           icon: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          title: 'www.instagram.com',
-          description: '在途流程 / 超期流程',
+          title: '新手辅助',
+          description: '新手辅助12312312',
         },
         {
           icon: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          title: 'www.instagram.com',
-          description: '我的待办 / 我的已办',
+          title: '快速治疗',
+          description: '快速治疗12321312321312',
         },
         {
           icon: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          title: 'www.instagram.com',
-          description: '组织 | 岗位 | 干部  ',
+          title: '猫粮检索',
+          description: '猫粮检索组织 | 岗位 | 干部  ',
         },
         {
           icon: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          title: 'www.instagram.com',
-          description: '组织管理 | 干部管理',
+          title: '配方计算',
+          description: '配方计算组织管理 | 干部管理',
+        },
+        {
+          icon: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+          title: '交流',
+          description: '交流组织管理 | 干部管理',
         },
       ],
       // 加载数据方法 必须为 Promise 对象
@@ -147,6 +140,9 @@ export default {
     setTimeout(() => {
       this.loading = false
     }, 1000)
+    article({ isArticle: true }).then((res) => {
+      this.activities = res.body.records
+    })
   },
   methods: {
     /**
@@ -163,6 +159,21 @@ export default {
 </script>
 
 <style lang="less" scoped>
+/* For demo */
+.ant-carousel {
+  /deep/.slick-slide {
+    text-align: center;
+    line-height: 160px;
+    background: #364d79;
+    overflow: hidden;
+  }
+}
+
+.ant-carousel {
+  /deep/ .slick-slide h3 {
+    color: #fff;
+  }
+}
 .content-table {
   background: #fff;
   &-body {

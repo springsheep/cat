@@ -1,6 +1,15 @@
+<!--
+ * @Descripttion: ----描述----
+ * @version: 1.0
+ * @Author: 张鹏
+ * @Date: 2022-05-01 15:29:35
+ * @LastEditors: 张鹏
+ * @LastEditTime: 2022-05-06 22:32:13
+-->
 <template>
   <div :class="wrpCls">
-    <avatar-dropdown :menu="showMenu" :current-user="currentUser" :class="prefixCls" />
+    <avatar-dropdown v-if="is" :menu="showMenu" :current-user="currentUser" :class="prefixCls" />
+    <div v-else @click="$router.push('/user/login')">未登录</div>
     <select-lang :class="prefixCls" />
   </div>
 </template>
@@ -37,6 +46,7 @@ export default {
     return {
       showMenu: true,
       currentUser: {},
+      is: localStorage.getItem('Access-Token'),
     }
   },
   computed: {
@@ -50,7 +60,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.currentUser = {
-        name: 'Serati Ma',
+        name: localStorage.getItem('userName'),
       }
     }, 1500)
   },

@@ -1,7 +1,19 @@
+<!--
+ * @Descripttion: ----描述----
+ * @version: 1.0
+ * @Author: 张鹏
+ * @Date: 2022-05-01 15:29:35
+ * @LastEditors: 张鹏
+ * @LastEditTime: 2022-05-06 21:12:20
+-->
 <template>
   <a-dropdown v-if="currentUser && currentUser.name" placement="bottomRight">
     <span class="ant-pro-account-avatar">
-      <a-avatar size="small" src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png" class="antd-pro-global-header-index-avatar" />
+      <a-avatar
+        size="small"
+        src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
+        class="antd-pro-global-header-index-avatar"
+      />
       <span>{{ currentUser.name }}</span>
     </span>
     <template v-slot:overlay>
@@ -35,21 +47,21 @@ export default {
   props: {
     currentUser: {
       type: Object,
-      default: () => null
+      default: () => null,
     },
     menu: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   methods: {
-    handleToCenter () {
+    handleToCenter() {
       this.$router.push({ path: '/account/center' })
     },
-    handleToSettings () {
+    handleToSettings() {
       this.$router.push({ path: '/account/settings' })
     },
-    handleLogout (e) {
+    handleLogout(e) {
       Modal.confirm({
         title: this.$t('layouts.usermenu.dialog.title'),
         content: this.$t('layouts.usermenu.dialog.content'),
@@ -57,14 +69,16 @@ export default {
           // return new Promise((resolve, reject) => {
           //   setTimeout(Math.random() > 0.5 ? resolve : reject, 1500)
           // }).catch(() => console.log('Oops errors!'))
-          return this.$store.dispatch('Logout').then(() => {
-            this.$router.push({ name: 'login' })
-          })
+          // return this.$store.dispatch('Logout').then(() => {
+
+          // })
+          localStorage.clear()
+          this.$router.push({ name: 'login' })
         },
-        onCancel () {}
+        onCancel() {},
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

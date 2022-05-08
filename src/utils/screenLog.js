@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: ----描述----
+ * @version: 1.0
+ * @Author: 张鹏
+ * @Date: 2022-05-01 15:29:35
+ * @LastEditors: 张鹏
+ * @LastEditTime: 2022-05-01 15:48:30
+ */
 /* eslint-disable */
 export const printANSI = () => {
   // console.clear()
@@ -10,8 +18,7 @@ export const printANSI = () => {
 ██╔══██║██║╚██╗██║   ██║   ██║  ██║    ██╔═══╝ ██╔══██╗██║   ██║
 ██║  ██║██║ ╚████║   ██║   ██████╔╝    ██║     ██║  ██║╚██████╔╝
 ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚═════╝     ╚═╝     ╚═╝  ╚═╝ ╚═════╝ 
-\t\t\t\t\tPublished ${APP_VERSION}-${GIT_HASH} @ antdv.com
-\t\t\t\t\tBuild date: ${BUILD_DATE}`
+`
   console.log(`%c${text}`, 'color: #fc4d50')
   console.log('%c感谢使用 antd pro!', 'color: #000; font-size: 14px;    font-family: Hiragino Sans GB,Microsoft YaHei,\\\\5FAE\\8F6F\\96C5\\9ED1,Droid Sans Fallback,Source Sans,Wenquanyi Micro Hei,WenQuanYi Micro Hei Mono,WenQuanYi Zen Hei,Apple LiGothic Medium,SimHei,ST Heiti,WenQuanYi Zen Hei Sharp,sans-serif;')
   console.log('%cThanks for using antd pro!', 'color: #fff; font-size: 14px; font-weight: 300; text-shadow:#000 1px 0 0,#000 0 1px 0,#000 -1px 0 0,#000 0 -1px 0;')

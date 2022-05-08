@@ -36,6 +36,7 @@ import {
   DatePicker,
   TimePicker,
   Upload,
+  Tree,
   Progress,
   Skeleton,
   Popconfirm,
@@ -48,7 +49,9 @@ import {
   notification,
   Anchor,
   FormModel,
-  Cascader
+  Cascader,
+  Carousel,
+  Pagination
 } from 'ant-design-vue'
 import Viser from 'viser-vue'
 
@@ -59,6 +62,10 @@ import MultiTab from '@/components/MultiTab'
 import PageLoading from '@/components/PageLoading'
 import PermissionHelper from '@/core/permission/permission'
 import './directives/action'
+
+Vue.use(Pagination)
+Vue.use(Tree)
+Vue.use(Carousel)
 Vue.use(Anchor)
 Vue.use(Cascader)
 Vue.use(FormModel)

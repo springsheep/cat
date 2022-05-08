@@ -486,120 +486,85 @@ const userNav = options => {
       },
     },
     {
-      name: 'processManagement',
-      parentId: 0,
-      id: 4,
-      meta: {
-        title: '流程管理'
-      },
-      redirect: '/processManagement/extensionContainer',
-      component: 'RouteView'
-    },
-    {
-      name: 'extensionContainer',
-      parentId: 4,
-      id: 41,
-      meta: {
-        title: '在途流程'
-      },
-      component: 'extensionContainer'
-    }, {
-      name: 'processManagement',
-      parentId: 4,
-      id: 41,
-      meta: {
-        title: '申请单详情',
-        show: false
-      },
-      component: 'processManagement'
-    },
-    {
-      name: 'processOrgChange',
-      parentId: 4,
-      id: 41,
-      meta: {
-        title: '组织调整',
-        show: false
-      },
-      component: 'processOrgChange'
-    },
-
-
-    {
-      name: 'processferc',
-      parentId: 4,
-      id: 42,
-      meta: {
-        title: '归档流程'
-      },
-      component: 'processferc'
-    },
-    {
-      name: 'postManagement',
-      parentId: 0,
-      id: 11,
-      meta: {
-        title: '发文管理'
-      },
-    }, {
-      name: 'reportQuery',
-      parentId: 0,
-      id: 12,
-      meta: {
-        title: '报表查询'
-      },
-      component: 'RouteView'
-    },
-    {
-      name: 'orgReport',
-      parentId: 12,
-      id: 121,
-      meta: {
-        title: '组织报表'
-      },
-      component: 'orgReport'
-    },
-    {
-      name: 'postReport',
-      parentId: 12,
-      id: 1222,
-      meta: {
-        title: '岗位报表'
-      },
-      component: 'postReport'
-    }, {
-      name: 'currentCadres',
-      parentId: 12,
-      id: 123,
-      meta: {
-        title: '现任干部报表'
-      },
-      component: 'currentCadres'
-    }, {
-      name: 'cadreWork',
-      parentId: 12,
-      id: 123,
-      meta: {
-        title: '干部工作履历和任命记录'
-      },
-      component: 'cadreWork'
-    }, {
-      name: 'orgChange',
-      parentId: 12,
-      id: 124,
-      meta: {
-        title: '组织变更记录'
-      },
-      component: 'orgChange'
-    },
-    {
       name: 'regulations',
       parentId: 0,
       id: 13,
       meta: {
-        title: '规章制度'
+        title: '科普',
+        show: false
       },
       component: 'regulations'
+    }, {
+      name: 'regulationsdetail',
+      path: '/regulationsdetail',
+      meta: {
+        title: '科普详情',
+      },
+      component: () => import('@/views/regulations/detail'),
+    },
+    {
+      name: 'newHelp',
+      parentId: 0,
+      id: 13,
+      meta: {
+        title: '新手辅助'
+      },
+      component: 'newHelp'
+    },
+    {
+      name: 'zhenliao',
+      parentId: 0,
+      id: 13,
+      meta: {
+        title: '快速诊疗'
+      },
+      component: 'zhenliao'
+    }, {
+      name: 'jiansuo',
+      parentId: 0,
+      id: 13,
+      meta: {
+        title: '检索'
+      },
+      component: 'jiansuo'
+    }, {
+      name: 'peifang',
+      parentId: 0,
+      id: 13,
+      meta: {
+        title: '配方计算'
+      },
+      component: 'peifang'
+    }, {
+      name: 'jiaoliu',
+      path: '/jiaoliu',
+      meta: {
+        title: '交流'
+      },
+      component: () => import('@/views/jiaoliu'),
+    }, {
+      name: 'pinglun',
+      path: '/pinglun',
+      meta: {
+        title: '评论',
+        role: [1]
+      },
+      component: () => import('@/views/pinglun'),
+    }, {
+      name: 'yonghu',
+      path: '/yonghu',
+      meta: {
+        title: '用户中心'
+      },
+      component: () => import('@/views/yonghu'),
+    }, {
+      name: 'geren',
+      parentId: 0,
+      id: 13,
+      meta: {
+        title: '个人空间'
+      },
+      component: 'geren'
     },
     // // account
     {
@@ -692,7 +657,7 @@ const userNav = options => {
       },
       component: 'NotificationSettings'
     },
-    ...demoMenu,
+    // ...demoMenu,
 
   ]
   const json = builder(nav)

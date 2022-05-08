@@ -21,9 +21,9 @@
     -->
     <template v-slot:menuHeaderRender>
       <div>
-        <!-- <logo-svg /> -->
-        <img src="../assets//logo-small.png" alt="" />
-        <h1>组织调整与干部任免</h1>
+        <logo-svg />
+        <!-- <img src="../assets//logo.svg" alt="" /> -->
+        <h1>养猫网站</h1>
       </div>
     </template>
     <!-- 1.0.0+ 版本 pro-layout 提供 API,
@@ -45,7 +45,7 @@
       </div>
     </template>
 
-    <setting-drawer v-if="isDev" :settings="settings" @change="handleSettingChange">
+    <setting-drawer :settings="settings" @change="handleSettingChange">
       <div style="margin: 12px 0">This is SettingDrawer custom footer content.</div>
     </setting-drawer>
     <template v-slot:rightContentRender>
@@ -94,7 +94,7 @@ export default {
       title: defaultSettings.title,
       settings: {
         // 布局类型
-        layout: defaultSettings.layout, // 'sidemenu', 'topmenu'
+        layout: '', // 'sidemenu', 'topmenu'
         // CONTENT_WIDTH_TYPE
         contentWidth: defaultSettings.layout === 'sidemenu' ? CONTENT_WIDTH_TYPE.Fluid : defaultSettings.contentWidth,
         // 主题 'dark' | 'light'
@@ -122,7 +122,28 @@ export default {
     }),
   },
   created() {
-    const routes = this.mainMenu.find((item) => item.path === '/')
+    const routes = JSON.parse(JSON.stringify(this.mainMenu.find((item) => item.path === '/')))
+    console.log(localStorage.getItem('userRole'), this.$store.state.permission.addRouters)
+    if (localStorage.getItem('userRole') == 1) {
+      this.settings.layout = 'sidemenu'
+      localStorage.setItem('layout', 'sidemenu')
+      this.$store.state.app.layout = 'sidemenu'
+      routes.children = routes.children.filter((i) => {
+        console.log(i.meta.role.includes(1), i.meta.role)
+        return i.meta.role.includes(1)
+      })
+    } else {
+      this.settings.layout = 'topmenu'
+      localStorage.setItem('layout', 'topmenu')
+      this.$store.state.app.layout = 'topmenu'
+      routes.children = routes.children.filter((i) => i.meta.role.includes(0))
+    }
+    if (!localStorage.getItem('Access-Token')) {
+      routes.children = routes.children.filter((i) => {
+        console.log(i.meta.role.includes(1), i.meta.role)
+        return !i.meta.role.includes(2)
+      })
+    }
     this.menus = (routes && routes.children) || []
     // 处理侧栏收起状态
     this.$watch('collapsed', () => {

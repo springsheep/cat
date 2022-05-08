@@ -4,7 +4,7 @@
  * @Author: 张鹏
  * @Date: 2022-04-18 11:17:20
  * @LastEditors: 张鹏
- * @LastEditTime: 2022-04-19 09:13:04
+ * @LastEditTime: 2022-05-08 19:41:09
 -->
 <template>
   <a-config-provider :locale="locale">
@@ -33,7 +33,27 @@ export default {
   },
 }
 </script>
+<style>
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+}
+</style>
 <style lang="less" scoped>
+.ant-carousel {
+  /deep/.slick-slide {
+    text-align: center;
+    line-height: 160px;
+    background: #364d79;
+    overflow: hidden;
+  }
+}
+
+.ant-carousel {
+  /deep/ .slick-slide h3 {
+    color: #fff;
+  }
+}
 #app {
   overflow-y: scroll;
   // height: calc(100vh-106px);
